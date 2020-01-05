@@ -79,7 +79,7 @@ def main():
 
                 board.push(move)
 
-                info = engine.analyse(board, chess.engine.Limit(depth=17))
+                info = engine.analyse(board, chess.engine.Limit(depth=20))
                 if(my_color == "white"):
                     str_the_score = ((str)((info["score"]).white()))
                     try:
@@ -127,18 +127,18 @@ def main():
         last_board = x.last_board
         print("SCORE CHANGE", x.score_change)
         all_images = functions.set_gui_board(last_board, gui_board, root)
-        info = engine.analyse(last_board, chess.engine.Limit(depth=17))
+        info = engine.analyse(last_board, chess.engine.Limit(depth=20))
         str_the_score = ((str)((info["score"]).white()))
         print("FROM: ", str_the_score)
         time.sleep(5)
         all_images = functions.set_gui_board(temp_board, gui_board, root)
-        info = engine.analyse(temp_board, chess.engine.Limit(depth=17))
+        info = engine.analyse(temp_board, chess.engine.Limit(depth=20))
         str_the_score = ((str)((info["score"]).white()))
         print("TO: ", str_the_score)
         #time.sleep(10)
         print()
 
-        result = engine.play(last_board, chess.engine.Limit(time=10))
+        result = engine.play(last_board, chess.engine.Limit(depth=25))
         new_temp_board = deepcopy(last_board)
         new_temp_board.push(result.move)
         all_images = functions.set_gui_board(new_temp_board, gui_board, root)

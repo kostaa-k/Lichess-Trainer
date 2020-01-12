@@ -9,6 +9,8 @@ class GameBoard(tk.Frame):
     the_width = 0
     piece_images = {}
 
+    current_board = None
+
     def __init__(self, parent, rows=8, columns=8, size=72, color1="white", color2="brown"):
         '''size is the size of a square, in pixels'''
 
@@ -27,11 +29,15 @@ class GameBoard(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.canvas = tk.Canvas(self, borderwidth=0, highlightthickness=0,
                                 width=canvas_width, height=canvas_height, background="bisque")
-        self.canvas.pack(side="top", fill="both", expand=True, padx=2, pady=2)
+        self.canvas.pack(side="left", fill="both", expand=True, padx=2, pady=2)
 
         # this binding will cause a refresh if the user interactively
         # changes the window size
         self.canvas.bind("<Configure>", self.refresh)
+
+        self.buttons_canvas = tk.Canvas(self, height=200, width=400)
+        self.buttons_canvas.pack(side="right", expand = True, padx=1, pady=2)
+        self.create_buttons()
 
     def redraw_canvas(self, rows=8, columns=8, size=72, color1="white", color2="brown"):
         self.rows = rows
@@ -44,7 +50,7 @@ class GameBoard(tk.Frame):
 
         #self.canvas = tk.Canvas(self, borderwidth=0, highlightthickness=0, width=canvas_width, height=canvas_height, background="bisque")
         self.canvas.configure(borderwidth=0, highlightthickness=0, width=canvas_width, height=canvas_height, background="bisque")
-        self.canvas.pack(side="top", fill="both", expand=True, padx=2, pady=2)
+        self.canvas.pack(side="left", fill="both", expand=True, padx=2, pady=2)
         self.canvas.bind("<Configure>", self.refresh)
 
         self.canvas.delete("square")
@@ -62,6 +68,7 @@ class GameBoard(tk.Frame):
             self.placepiece(name, self.pieces[name][0], self.pieces[name][1])
         self.canvas.tag_raise("piece")
         self.canvas.tag_lower("square")
+
 
     def addpiece(self, name, row=0, column=0):
         '''Add a piece to the playing board'''
@@ -174,6 +181,77 @@ class GameBoard(tk.Frame):
     def destroy_some_frame(self):
         self.some_frame.destroy()
         self.some_frame = None
+
+
+    def create_buttons(self):
+        print("Packing Buttons")
+
+        self.my_move_button = tk.Button(self.buttons_canvas, width=20, bg="light blue", text="My Move", command=self.make_my_move)
+        self.my_move_button.grid(column=1, row=2)
+
+        self.engine_move_button = tk.Button(self.buttons_canvas, width=15, bg="light blue", text="Engine Move", command=self.make_engine_move)
+        self.engine_move_button.grid(column=1, row=3)
+
+        self.database_move_button = tk.Button(self.buttons_canvas, width=15, bg="light blue", text="DataBase Move", command=self.make_database_move)
+        self.database_move_button.grid(column=1, row=4)
+
+    def make_my_move(self):
+        print("making my move")
+        move = self.current_board
+
+    def make_engine_move(self):
+        print("making engine move")
+
+    def make_database_move(self):
+        print("Making database move")
+
+
+
+    def make_a_move(self, move):
+        #print(board.pieces)
+        the_str = (board.pieces(chess.PAWN, chess.WHITE))
+        #print(board.xboard)
+
+        piece_names = {}
+        piece_names[1] = "PAWN"
+        piece_names[2] = "KNIGHT"
+        piece_names[3] = "BISHOP"
+        piece_names[4] = "ROOK"
+        piece_names[5] = "QUEEN"
+        piece_names[6] = "KING"
+
+        self.pieces.clear()
+        self.canvas.delete("all")
+        self.redraw_canvas()
+        self.current_board = board
+
+        colors_str = ["WHITE", "BLACK"]
+        the_colors = [chess.WHITE, chess.BLACK]
+        for i in range(0, 2):
+            temp_color = the_colors[i]
+            color_str = colors_str[i]
+
+            for piece_num in range(1, 7):
+                piece_name = piece_names[piece_num]
+                these_pieces = board.pieces(piece_num, temp_color)
+                temp_name = color_str+"_"+piece_name
+                #print(list(these_pieces))
+                filepath_name = "Pieces/"+temp_name.lower()+".png"
+                tk_image = tk.PhotoImage(file=filepath_name)
+                #all_images.append(tk_image)
+                piece_counting=0
+                for temp_piece in list(these_pieces):
+                    x_pos = temp_piece%8
+                    y_pos = (temp_piece//8)
+                    #print(x_pos, y_pos, end= "")
+                    #print("  ", end="")
+                    unique_piece_id = temp_name+"__"+(str)(piece_counting)
+                   self.addpiece(unique_piece_id, y_pos, x_pos)
+                    root.update()
+                    #time.sleep(0.1)
+                    piece_counting = piece_counting+1
+
+    return 0
 
         
         

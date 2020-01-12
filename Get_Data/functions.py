@@ -25,6 +25,7 @@ def set_gui_board(board, gui_board, root):
     gui_board.pieces.clear()
     gui_board.canvas.delete("all")
     gui_board.redraw_canvas()
+    gui_board.current_board = board
     #gui_board = GameBoard(root)
     #gui_board.pack(side="top", fill="both", expand="true", padx=4, pady=4)
 

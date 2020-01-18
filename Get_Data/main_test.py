@@ -31,7 +31,7 @@ def main():
     gui_board.set_up_pieces_images()
 
     user = lichess.api.user(username)
-    max_num_games = 1
+    max_num_games = 5
     example_games = get_lichess.get_lichess_games(username, max_num_games)
 
     max_moves_threshold = 10

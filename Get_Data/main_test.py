@@ -20,7 +20,7 @@ def main():
     the_colors = [chess.WHITE, chess.BLACK]
 
     username="kostaaa"
-    engine = chess.engine.SimpleEngine.popen_uci('C:/Users/kosta/Documents/chess/stockfish-10-win/stockfish-10-win/Windows/stockfish_10_x64.exe')
+    engine = chess.engine.SimpleEngine.popen_uci('C:/Users/OD/Kosta/stockfish-10-win/Windows/stockfish_10_x64.exe')
 
     my_color = ""
     my_turn= None

@@ -236,7 +236,7 @@ class GameBoard(tk.Frame):
                 these_pieces = board.pieces(piece_num, temp_color)
                 temp_name = color_str+"_"+piece_name
                 #print(list(these_pieces))
-                filepath_name = "Pieces/"+temp_name.lower()+".png"
+                filepath_name = "../Pieces/"+temp_name.lower()+".png"
                 tk_image = tk.PhotoImage(file=filepath_name)
                 #all_images.append(tk_image)
                 piece_counting=0
@@ -246,12 +246,12 @@ class GameBoard(tk.Frame):
                     #print(x_pos, y_pos, end= "")
                     #print("  ", end="")
                     unique_piece_id = temp_name+"__"+(str)(piece_counting)
-                   self.addpiece(unique_piece_id, y_pos, x_pos)
+                    self.addpiece(unique_piece_id, y_pos, x_pos)
                     root.update()
                     #time.sleep(0.1)
                     piece_counting = piece_counting+1
 
-    return 0
+        return 0
 
         
         

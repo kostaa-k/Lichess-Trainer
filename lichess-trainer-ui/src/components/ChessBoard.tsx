@@ -1,99 +1,110 @@
-
 import React, { Component } from 'react';
+import CSS from 'csstype';
+const Draggable = require('react-draggable')
+const defaultLineup = require('../defaultLineup')
 const pieceComponents = require('../pieces')
-const resizeAware = require('react-resize-aware')
+const decode = require('./decode')
 
-const ResizeAware = resizeAware.default || resizeAware
+
+const getDefaultLineup = () => defaultLineup.slice()
+
+type square_box = {
+    x_cord: Number,
+    y_cord: Number,
+    box_style: CSS.Properties
+}
 
 const square = 100 / 8
 const squareSize = `${square}%`
-const squareStyles = {
+
+const box_style: CSS.Properties = {
     width: squareSize,
+    //width: '100px',
     paddingBottom: squareSize,
     float: 'left',
     position: 'relative',
-    pointerEvents: 'none'
+    pointerEvents: 'none',
+    height: squareSize,
   }
 
-// export type ChessBoardProps = {
-//     rows: Number,
-//     columns: Number
-// }
+let tiles: square_box[];
+  
+export class ChessBoard extends Component{
+
+    setup() {
+
+        tiles = []
+
+        let count = 0
+
+        for(let y=0; y<8 ;y++){
+            count = count+1
+            for(let x=0;x<8;x++){
+                const unique_id = 10*y+x
+
+                const boxShadow = undefined
+
+                //colour is white
+                let backgroundColor = '#f0d9b5'
+                if(count%2 == 0){
+                    backgroundColor = '#b58863'
+                    //colour is black
+                }
+                const top=y*square
+                
+                const this_style = Object.assign({backgroundColor, top}, box_style)
+                const temp_square = {x_cord: x, y_cord: y, box_style:this_style}
 
 
-const labelStyles = {fontSize: 'calc(7px + .5vw)', position: 'absolute', userSelect: 'none'}
-const yLabelStyles = Object.assign({top: '5%', left: '5%'}, labelStyles)
-const xLabelStyles = Object.assign({bottom: '5%', right: '5%'}, labelStyles)
+                count = count+1
 
-
-// export class ChessBoard extends Component<ChessBoardProps> {
-//     constructor(props: ChessBoardProps) {
-//         super(props);
-//         //this.props.drawLabels=true
-//     }
-export class ChessBoard extends React.Component {
-
-    renderLabelText(x: Number, y: Number) {
-        const isLeftColumn = x === 0
-        const isBottomRow = y === 7
-    
-        //if (!this.props.drawLabels || (!isLeftColumn && !isBottomRow)) {
-        if ((!isLeftColumn && !isBottomRow)) {
-          return null
+                tiles.push(temp_square)
+            }
         }
-    
-        if (isLeftColumn && isBottomRow) {
-          return [
-            <span key="blx" style={xLabelStyles}>
-              a
-            </span>,
-            <span key="bly" style={yLabelStyles}>
-              1
-            </span>
-          ]
-        }
+    }
+
+
+    componentWillMount() {
+        this.setup();
     }
 
     render() {
+        
+        const these_pieces = getDefaultLineup()
 
-        const all_boxes = []
+        console.log(these_pieces)
+        // const pieces = these_pieces.map((decl, i) => 
+        // const isMoving = draggingPiece && i === draggingPiece.index
+        // const {x, y, piece} = decode.fromPieceDecl(decl)
+        // const Piece = pieceComponents[piece]
+        // return (
+        //     <Draggable
+        //     bounds="parent"
+        //     position={{x: 0, y: 0}}
+        //     //onStart={this.handleDragStart}
+        //     //onDrag={this.handleDrag}
+        //     //onStop={this.handleDragStop}
+        //     key={`${piece}-${x}-${y}`}>
+        //     <Piece isMoving={isMoving} x={x} y={y} />
+        //     </Draggable>
+        // )
+        //   })
 
-        for(let y=0; y<8;y++){
-            for(let x=0; x<8;x++){
-                //const isTarget = targetTile && targetTile.x === x && targetTile.y === y
-                const background = 'black'
-                //const boxShadow = isTarget ? 'inset 0px 0px 0px 0.4vmin yellow' : undefined
-                const boxShadow = undefined
-                const styles = Object.assign({background, boxShadow}, squareStyles)
+        // const pieces = these_pieces.map((dec1: String, i:Number) => {
+        //     const {x, y, piece} = decode.fromPieceDecl(decl)
+        //     const Piece = pieceComponents[piece]
 
-                all_boxes.push(
-                    <div key={`rect-${x}-${y}`} style={styles}>
-                        {this.renderLabelText(x, y)}
-                    </div>
-                )
-            }
-        }
+        // }
+        
+        // )
 
-        return (
-          <div>
-            Hello3
-          </div>
-        )
+        //const children = tiles.concat(pieces)
+
+        const all_tiles = tiles.map(this_square=> <div style={this_square.box_style}> </div>)
+
+        return all_tiles
+
     }
 }
-
-// ChessBoard.defaultProps = {
-//   allowMoves: true,
-//   highlightTarget: true,
-//   drawLabels: true,
-//   onMovePiece: noop,
-//   onDragStart: noop,
-//   lightSquareColor: '#f0d9b5',
-//   darkSquareColor: '#b58863',
-//   pieces: getDefaultLineup()
-// }
-
-const a_board = new ChessBoard(8);
-
 
 export default ChessBoard;

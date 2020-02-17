@@ -83,31 +83,31 @@ export class ChessBoard extends Component {
         switch (letter) {
             //WHITE PIECES
             case ("P"):
-                return <img src={WhitePawn} />
+                return <img src={WhitePawn} id="piece"/>
             case ("R"):
-                return <img src={WhiteRook} />
+                return <img src={WhiteRook} id="piece"/>
             case ("N"):
-                return <img src={WhiteKnight} />
+                return <img src={WhiteKnight} id="piece"/>
             case ("B"):
-                return <img src={WhiteBishop} />
+                return <img src={WhiteBishop} id="piece"/>
             case ("Q"):
-                return <img src={WhiteQueen} />
+                return <img src={WhiteQueen} id="piece"/>
             case ("K"):
-                return <img src={WhiteKing} />
+                return <img src={WhiteKing} id="piece"/>
             //BLACK PIECES
 
             case ("p"):
-                return <img src={BlackPawn} />
+                return <img src={BlackPawn} id="piece"/>
             case ("r"):
-                return <img src={BlackRook} />
+                return <img src={BlackRook} id="piece"/>
             case ("n"):
-                return <img src={BlackKnight} />
+                return <img src={BlackKnight} id="piece" />
             case ("b"):
-                return <img src={BlackBishop} />
+                return <img src={BlackBishop} id="piece"/>
             case ("q"):
-                return <img src={BlackQueen} />
+                return <img src={BlackQueen} id="piece"/>
             case ("k"):
-                return <img src={BlackKing} />
+                return <img src={BlackKing} id="piece"/>
         }
     }
 

@@ -24,7 +24,15 @@ const getDefaultLineup = () => defaultLineup.slice()
 type square_box = {
     x_cord: Number,
     y_cord: Number,
-    box_style: CSS.Properties
+    //unique_id: String,
+    box_style: CSS.Properties,
+    //piece_inside: a_piece
+}
+
+type a_piece = {
+    unique_id: String,
+    current_square: square_box,
+    letter: String
 }
 
 const square = 100 / 8
@@ -40,8 +48,10 @@ const box_style: CSS.Properties = {
     height: squareSize,
   }
 
-let tiles: square_box[];
-  
+let tiles: square_box[][];
+
+let piece_objects: a_piece[];
+
 export class ChessBoard extends Component{
 
     setup() {
@@ -50,10 +60,17 @@ export class ChessBoard extends Component{
 
         let count = 0
 
+        let temp_Square_tiles: square_box[];
+
+        //const word_array = ["a", "b", "c", "d", "e", "f", "g", "h"]
         for(let y=0; y<8 ;y++){
             count = count+1
+            
+            temp_Square_tiles = []
             for(let x=0;x<8;x++){
                 const unique_id = 10*y+x
+
+                //const corresponding_letter = word_array[x]
 
                 const boxShadow = undefined
 
@@ -66,135 +83,103 @@ export class ChessBoard extends Component{
                 const top=y*square
                 
                 const this_style = Object.assign({backgroundColor, top}, box_style)
+                
+                const null_piece = {}
                 const temp_square = {x_cord: x, y_cord: y, box_style:this_style}
 
 
                 count = count+1
 
-                tiles.push(temp_square)
+                temp_Square_tiles.push(temp_square)
             }
+
+            tiles.push(temp_Square_tiles)
         }
     }
 
+    get_piece_picture(letter: String){
+        switch(letter){
+            //WHITE PIECES
+            case("P"):
+                return WhitePawn
+            case("R"):
+                return WhiteRook
+            case("N"):
+                return WhiteKnight
+            case("B"):
+                return WhiteBishop
+            case("Q"):
+                return WhiteQueen
+            case("K"):
+                return WhiteKing
+            //BLACK PIECES
+
+            case("p"):
+                return BlackPawn
+            case("r"):
+                return BlackRook
+            case("n"):
+                return BlackKnight
+            case("b"):
+                return BlackBishop
+            case("q"):
+                return BlackQueen
+            case("k"):
+                return BlackKing
+
+        }
+    }
+
+    decode_str_position(letter: String, the_num: number){
+        const input= "a7"
+
+        const x_cord = letter.charCodeAt(0) - 97;
+        const y_cord = 8-the_num;
+
+        return tiles[y_cord][x_cord]
+    }
 
     componentWillMount() {
         this.setup();
+        this.initialize_pieces();
+    }
+
+    initialize_pieces(){
+
+        piece_objects = []
+
+        const these_pieces = getDefaultLineup()
+        
+        for(let i = 0;i<these_pieces.length;i++){
+            const piece_str = these_pieces[i];
+            const position_str = piece_str.split(["@"])[1]
+            const the_letter = position_str.charAt(0);
+            const the_num_pos = Number(position_str.charAt(1));
+
+            const piece_name = piece_str.split(["@"])[0];
+
+            //{x_cord: x, y_cord: y, box_style:this_style}
+
+            const piece_object = {unique_id: "hello", current_square:this.decode_str_position(the_letter, the_num_pos), letter:piece_name};
+            //const piece_pic = this.get_piece_picture(piece_name)
+
+            piece_objects.push(piece_object);
+        }
     }
 
     render() {
-        
-        const these_pieces = getDefaultLineup()
 
-        console.log(these_pieces)
-        // const pieces = these_pieces.map((decl, i) => 
-        // const isMoving = draggingPiece && i === draggingPiece.index
-        // const {x, y, piece} = decode.fromPieceDecl(decl)
-        // const Piece = pieceComponents[piece]
-        // return (
-        //     <Draggable
-        //     bounds="parent"
-        //     position={{x: 0, y: 0}}
-        //     //onStart={this.handleDragStart}
-        //     //onDrag={this.handleDrag}
-        //     //onStop={this.handleDragStop}
-        //     key={`${piece}-${x}-${y}`}>
-        //     <Piece isMoving={isMoving} x={x} y={y} />
-        //     </Draggable>
-        // )
-        //   })
+        // for(let i =0;i<piece_objects.length;i++){
+        //     console.log(piece_objects[i]);
+        // }
 
-        // const pieces = these_pieces.map((dec1: String, i:Number) => {
-        //     const {x, y, piece} = decode.fromPieceDecl(decl)
-        //     const Piece = pieceComponents[piece]
-
+        // for(let i =0;i<tiles.length;i++){
+        //     for(let x=0;x<tiles[0].length;x++){
+        //         console.log(tiles[i][x]);
         // }
         
-        // )
 
-        //const children = tiles.concat(pieces)
-
-        const all_tiles = tiles.map(this_square => {
-            switch(this_square.y_cord) {
-                case 0: 
-                    switch(this_square.x_cord) {
-                        case 0:
-                            return <div style={this_square.box_style}>{WhitePawn()}</div>
-                        case 1:
-                            return <div style={this_square.box_style}>{WhitePawn()}</div>
-                        case 2:
-                            return <div style={this_square.box_style}>{WhitePawn()}</div>
-                        case 3:
-                            return <div style={this_square.box_style}>{WhitePawn()}</div>
-                        case 4:
-                            return <div style={this_square.box_style}>{WhitePawn()}</div>
-                        case 5:
-                            return <div style={this_square.box_style}>{WhitePawn()}</div>
-                        case 6:
-                            return <div style={this_square.box_style}>{WhitePawn()}</div>
-                        case 7:
-                            return <div style={this_square.box_style}>{WhitePawn()}</div>
-                    }
-                case 1:
-                    switch(this_square.x_cord) {
-                        case 0:
-                            return <div style={this_square.box_style}>{BlackPawn()}</div>
-                        case 1:
-                            return <div style={this_square.box_style}>{BlackPawn()}</div>
-                        case 2:
-                            return <div style={this_square.box_style}>{BlackPawn()}</div>
-                        case 3:
-                            return <div style={this_square.box_style}>{BlackPawn()}</div>
-                        case 4:
-                            return <div style={this_square.box_style}>{BlackPawn()}</div>
-                        case 5:
-                            return <div style={this_square.box_style}>{BlackPawn()}</div>
-                        case 6:
-                            return <div style={this_square.box_style}>{BlackPawn()}</div>
-                        case 7:
-                            return <div style={this_square.box_style}>{BlackPawn()}</div>
-                    }
-                case 1:
-                    switch(this_square.x_cord) {
-                        case 0:
-                            return <div style={this_square.box_style}>{BlackPawn()}</div>
-                        case 1:
-                            return <div style={this_square.box_style}>{BlackPawn()}</div>
-                        case 2:
-                            return <div style={this_square.box_style}>{BlackPawn()}</div>
-                        case 3:
-                            return <div style={this_square.box_style}>{BlackPawn()}</div>
-                        case 4:
-                            return <div style={this_square.box_style}>{BlackPawn()}</div>
-                        case 5:
-                            return <div style={this_square.box_style}>{BlackPawn()}</div>
-                        case 6:
-                            return <div style={this_square.box_style}>{BlackPawn()}</div>
-                        case 7:
-                            return <div style={this_square.box_style}>{BlackPawn()}</div>
-                    }
-
-                case 7:
-                    switch(this_square.y_cord) {
-                        case 0:
-                            return <div style={this_square.box_style}>{WhiteRook()}</div>
-                        case 1:
-                            return <div style={this_square.box_style}>{WhiteKnight()}</div>
-                        case 2:
-                            return <div style={this_square.box_style}>{WhiteBishop()}</div>
-                        case 3:
-                            return <div style={this_square.box_style}>{WhiteKing()}</div>
-                        case 4:
-                            return <div style={this_square.box_style}>{WhiteQueen()}</div>
-                        case 5:
-                            return <div style={this_square.box_style}>{WhiteBishop()}</div>
-                        case 6:
-                            return <div style={this_square.box_style}>{WhiteKnight()}</div>
-                        case 7:
-                            return <div style={this_square.box_style}>{WhiteRook()}</div>
-                    }
-                default:
-                    return <div style={this_square.box_style}></div>
-            }
+        const all_tiles = tiles[0].map(this_square => {
 
         })
 

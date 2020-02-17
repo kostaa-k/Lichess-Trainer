@@ -12,22 +12,15 @@ import WhiteRook from '../pieces/WhiteRook';
 import WhiteKing from '../pieces/WhiteKing';
 import WhiteQueen from '../pieces/WhiteQueen';
 import WhitePawn from '../pieces/WhitePawn';
-import { all } from 'q';
 
-const Draggable = require('react-draggable')
 const defaultLineup = require('../defaultLineup')
-const pieceComponents = require('../pieces')
-const decode = require('./decode')
-
 
 const getDefaultLineup = () => defaultLineup.slice()
 
 type square_box = {
     x_cord: Number,
     y_cord: Number,
-    //unique_id: String,
     box_style: CSS.Properties,
-    //piece_inside: a_piece
 }
 
 type a_piece = {
@@ -41,7 +34,6 @@ const squareSize = `${square}%`
 
 const box_style: CSS.Properties = {
     width: squareSize,
-    //width: '100px',
     paddingBottom: squareSize,
     float: 'left',
     position: 'relative',
@@ -63,34 +55,23 @@ export class ChessBoard extends Component{
 
         let temp_Square_tiles: square_box[];
 
-        //const word_array = ["a", "b", "c", "d", "e", "f", "g", "h"]
         for(let y=0; y<8 ;y++){
             count = count+1
             
             temp_Square_tiles = []
             for(let x=0;x<8;x++){
-                const unique_id = 10*y+x
-
-                //const corresponding_letter = word_array[x]
-
-                const boxShadow = undefined
-
                 //colour is white
                 let backgroundColor = '#f0d9b5'
+
                 if(count%2 == 0){
-                    backgroundColor = '#b58863'
                     //colour is black
+                    backgroundColor = '#b58863'
                 }
                 const top=y*square
-                
                 const this_style = Object.assign({backgroundColor, top}, box_style)
-                
-                const null_piece = {}
                 const temp_square = {x_cord: x, y_cord: y, box_style:this_style}
 
-
                 count = count+1
-
                 temp_Square_tiles.push(temp_square)
             }
 
@@ -98,41 +79,41 @@ export class ChessBoard extends Component{
         }
     }
 
-    get_piece_picture(letter: String){
+    get_piece_picture(letter: String, size: Number){
         switch(letter){
             //WHITE PIECES
             case("P"):
-                return WhitePawn()
+                return <img src="../pieces/white_pawn.png" />
             case("R"):
-                return WhiteRook()
+                return WhiteRook(size)
             case("N"):
-                return WhiteKnight()
+                return WhiteKnight(size)
             case("B"):
-                return WhiteBishop()
+                return WhiteBishop(size)
             case("Q"):
-                return WhiteQueen()
+                return WhiteQueen(size)
             case("K"):
-                return WhiteKing()
+                return WhiteKing(size)
             //BLACK PIECES
 
             case("p"):
-                return BlackPawn()
+                return BlackPawn(size)
             case("r"):
-                return BlackRook()
+                return BlackRook(size)
             case("n"):
-                return BlackKnight()
+                return BlackKnight(size)
             case("b"):
-                return BlackBishop()
+                return BlackBishop(size)
             case("q"):
-                return BlackQueen()
+                return BlackQueen(size)
             case("k"):
-                return BlackKing()
+                return BlackKing(size)
 
         }
     }
 
     decode_str_position(letter: String, the_num: number){
-        const input= "a7"
+        // const input= "a7"
 
         const x_cord = letter.charCodeAt(0) - 97;
         const y_cord = 8-the_num;
@@ -158,35 +139,22 @@ export class ChessBoard extends Component{
             const the_num_pos = Number(position_str.charAt(1));
 
             const piece_name = piece_str.split(["@"])[0];
-
-            //{x_cord: x, y_cord: y, box_style:this_style}
-
             const piece_object = {unique_id: "hello", current_square:this.decode_str_position(the_letter, the_num_pos), letter:piece_name};
-            //const piece_pic = this.get_piece_picture(piece_name)
 
             piece_objects.push(piece_object);
         }
     }
 
     render() {
-
-        // for(let i =0;i<piece_objects.length;i++){
-        //     console.log(piece_objects[i]);
-        // }
-
-        // for(let i =0;i<tiles.length;i++){
-        //     for(let x=0;x<tiles[0].length;x++){
-        //         console.log(tiles[i][x]);
-        // }
-
         const all_tiles  = tiles.map(tileRow =>{
             const some_tiles = tileRow.map(tile => {
                 let listPieceInfo = piece_objects.filter(piece => piece.current_square.x_cord === tile.x_cord && piece.current_square.y_cord === tile.y_cord);
-                // let pieceLetter = this.get_piece_picture(listPieceInfo[0].letter);
+                
                 if (listPieceInfo[0] === undefined) {
                     return <div style={tile.box_style}></div>
                 } else {
-                    return <div style={tile.box_style}>{this.get_piece_picture(listPieceInfo[0].letter)}</div>
+                    // return <div style={tile.box_style}>{this.get_piece_picture(listPieceInfo[0].letter, 100)}</div>
+                    return <div style={tile.box_style}><img src='../pieces/white_pawn.png' /></div>
                 }
             })
             return some_tiles;

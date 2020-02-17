@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import CSS from 'csstype';
+import BlackKnight from '../pieces/BlackKnight';
+import BlackBishop from '../pieces/BlackBishop';
+import BlackRook from '../pieces/BlackRook';
+import BlackKing from '../pieces/BlackKing';
+import BlackQueen from '../pieces/BlackQueen';
+
 const Draggable = require('react-draggable')
 const defaultLineup = require('../defaultLineup')
 const pieceComponents = require('../pieces')
@@ -100,10 +106,53 @@ export class ChessBoard extends Component{
 
         //const children = tiles.concat(pieces)
 
-        const all_tiles = tiles.map(this_square=> <div style={this_square.box_style}> </div>)
+        const all_tiles = tiles.map(this_square => {
+            switch(this_square.y_cord) {
+                case 0: 
+                    switch(this_square.x_cord) {
+                        case 0:
+                            return <div style={this_square.box_style}>{BlackRook()}</div>
+                        case 1:
+                            return <div style={this_square.box_style}>{BlackKnight()}</div>
+                        case 2:
+                            return <div style={this_square.box_style}>{BlackBishop()}</div>
+                        case 3:
+                            return <div style={this_square.box_style}>{BlackKing()}</div>
+                        case 4:
+                            return <div style={this_square.box_style}>{BlackQueen()}</div>
+                        case 5:
+                            return <div style={this_square.box_style}>{BlackBishop()}</div>
+                        case 6:
+                            return <div style={this_square.box_style}>{BlackKnight()}</div>
+                        case 7:
+                            return <div style={this_square.box_style}>{BlackRook()}</div>
+                    }
+                case 7:
+                    switch(this_square.y_cord) {
+                        case 0:
+                            return <div style={this_square.box_style}>{BlackRook()}</div>
+                        case 1:
+                            return <div style={this_square.box_style}>{BlackKnight()}</div>
+                        case 2:
+                            return <div style={this_square.box_style}>{BlackBishop()}</div>
+                        case 3:
+                            return <div style={this_square.box_style}>{BlackKing()}</div>
+                        case 4:
+                            return <div style={this_square.box_style}>{BlackQueen()}</div>
+                        case 5:
+                            return <div style={this_square.box_style}>{BlackBishop()}</div>
+                        case 6:
+                            return <div style={this_square.box_style}>{BlackKnight()}</div>
+                        case 7:
+                            return <div style={this_square.box_style}>{BlackRook()}</div>
+                    }
+                default:
+                    return <div style={this_square.box_style}></div>
+            }
+
+        })
 
         return all_tiles
-
     }
 }
 

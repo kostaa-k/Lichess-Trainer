@@ -5,6 +5,13 @@ import BlackBishop from '../pieces/BlackBishop';
 import BlackRook from '../pieces/BlackRook';
 import BlackKing from '../pieces/BlackKing';
 import BlackQueen from '../pieces/BlackQueen';
+import BlackPawn from '../pieces/BlackPawn';
+import WhiteKnight from '../pieces/WhiteKnight';
+import WhiteBishop from '../pieces/WhiteBishop';
+import WhiteRook from '../pieces/WhiteRook';
+import WhiteKing from '../pieces/WhiteKing';
+import WhiteQueen from '../pieces/WhiteQueen';
+import WhitePawn from '../pieces/WhitePawn';
 
 const Draggable = require('react-draggable')
 const defaultLineup = require('../defaultLineup')
@@ -111,40 +118,79 @@ export class ChessBoard extends Component{
                 case 0: 
                     switch(this_square.x_cord) {
                         case 0:
-                            return <div style={this_square.box_style}>{BlackRook()}</div>
+                            return <div style={this_square.box_style}>{WhitePawn()}</div>
                         case 1:
-                            return <div style={this_square.box_style}>{BlackKnight()}</div>
+                            return <div style={this_square.box_style}>{WhitePawn()}</div>
                         case 2:
-                            return <div style={this_square.box_style}>{BlackBishop()}</div>
+                            return <div style={this_square.box_style}>{WhitePawn()}</div>
                         case 3:
-                            return <div style={this_square.box_style}>{BlackKing()}</div>
+                            return <div style={this_square.box_style}>{WhitePawn()}</div>
                         case 4:
-                            return <div style={this_square.box_style}>{BlackQueen()}</div>
+                            return <div style={this_square.box_style}>{WhitePawn()}</div>
                         case 5:
-                            return <div style={this_square.box_style}>{BlackBishop()}</div>
+                            return <div style={this_square.box_style}>{WhitePawn()}</div>
                         case 6:
-                            return <div style={this_square.box_style}>{BlackKnight()}</div>
+                            return <div style={this_square.box_style}>{WhitePawn()}</div>
                         case 7:
-                            return <div style={this_square.box_style}>{BlackRook()}</div>
+                            return <div style={this_square.box_style}>{WhitePawn()}</div>
                     }
+                case 1:
+                    switch(this_square.x_cord) {
+                        case 0:
+                            return <div style={this_square.box_style}>{BlackPawn()}</div>
+                        case 1:
+                            return <div style={this_square.box_style}>{BlackPawn()}</div>
+                        case 2:
+                            return <div style={this_square.box_style}>{BlackPawn()}</div>
+                        case 3:
+                            return <div style={this_square.box_style}>{BlackPawn()}</div>
+                        case 4:
+                            return <div style={this_square.box_style}>{BlackPawn()}</div>
+                        case 5:
+                            return <div style={this_square.box_style}>{BlackPawn()}</div>
+                        case 6:
+                            return <div style={this_square.box_style}>{BlackPawn()}</div>
+                        case 7:
+                            return <div style={this_square.box_style}>{BlackPawn()}</div>
+                    }
+                case 1:
+                    switch(this_square.x_cord) {
+                        case 0:
+                            return <div style={this_square.box_style}>{BlackPawn()}</div>
+                        case 1:
+                            return <div style={this_square.box_style}>{BlackPawn()}</div>
+                        case 2:
+                            return <div style={this_square.box_style}>{BlackPawn()}</div>
+                        case 3:
+                            return <div style={this_square.box_style}>{BlackPawn()}</div>
+                        case 4:
+                            return <div style={this_square.box_style}>{BlackPawn()}</div>
+                        case 5:
+                            return <div style={this_square.box_style}>{BlackPawn()}</div>
+                        case 6:
+                            return <div style={this_square.box_style}>{BlackPawn()}</div>
+                        case 7:
+                            return <div style={this_square.box_style}>{BlackPawn()}</div>
+                    }
+
                 case 7:
                     switch(this_square.y_cord) {
                         case 0:
-                            return <div style={this_square.box_style}>{BlackRook()}</div>
+                            return <div style={this_square.box_style}>{WhiteRook()}</div>
                         case 1:
-                            return <div style={this_square.box_style}>{BlackKnight()}</div>
+                            return <div style={this_square.box_style}>{WhiteKnight()}</div>
                         case 2:
-                            return <div style={this_square.box_style}>{BlackBishop()}</div>
+                            return <div style={this_square.box_style}>{WhiteBishop()}</div>
                         case 3:
-                            return <div style={this_square.box_style}>{BlackKing()}</div>
+                            return <div style={this_square.box_style}>{WhiteKing()}</div>
                         case 4:
-                            return <div style={this_square.box_style}>{BlackQueen()}</div>
+                            return <div style={this_square.box_style}>{WhiteQueen()}</div>
                         case 5:
-                            return <div style={this_square.box_style}>{BlackBishop()}</div>
+                            return <div style={this_square.box_style}>{WhiteBishop()}</div>
                         case 6:
-                            return <div style={this_square.box_style}>{BlackKnight()}</div>
+                            return <div style={this_square.box_style}>{WhiteKnight()}</div>
                         case 7:
-                            return <div style={this_square.box_style}>{BlackRook()}</div>
+                            return <div style={this_square.box_style}>{WhiteRook()}</div>
                     }
                 default:
                     return <div style={this_square.box_style}></div>

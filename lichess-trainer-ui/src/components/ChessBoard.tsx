@@ -12,6 +12,7 @@ import WhiteRook from '../pieces/WhiteRook';
 import WhiteKing from '../pieces/WhiteKing';
 import WhiteQueen from '../pieces/WhiteQueen';
 import WhitePawn from '../pieces/WhitePawn';
+import { all } from 'q';
 
 const Draggable = require('react-draggable')
 const defaultLineup = require('../defaultLineup')
@@ -177,12 +178,19 @@ export class ChessBoard extends Component{
         //     for(let x=0;x<tiles[0].length;x++){
         //         console.log(tiles[i][x]);
         // }
-        
 
-        const all_tiles = tiles[0].map(this_square => {
-
+        const all_tiles  = tiles.map(tileRow =>{
+            tileRow.map(tile => {
+                let listPieceInfo = piece_objects.filter(piece => piece.current_square.x_cord === tile.x_cord && piece.current_square.y_cord === tile.y_cord);
+                // let pieceLetter = this.get_piece_picture(listPieceInfo[0].letter);
+                if (listPieceInfo[0] === undefined) {
+                    return <div style={tile.box_style}></div>
+                } else {
+                    return <div style={tile.box_style}>{BlackBishop()}</div>
+                }
+            })
         })
-
+        console.log(all_tiles)
         return all_tiles
     }
 }

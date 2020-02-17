@@ -39,6 +39,7 @@ const box_style: CSS.Properties = {
     float: 'left',
     position: 'relative',
     pointerEvents: 'none',
+    alignItems: 'center',
 }
 
 let tiles: square_box[][];

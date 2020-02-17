@@ -67,19 +67,19 @@ export class ChessBoard extends Component {
             
             for (let x = 0; x < 8; x++) {
                 //colour is white
-                let backgroundColor = '#f0d9b5'
+                let backgroundColor = '#f0d9b5';
 
                 if (count % 2 == 0) {
                     //colour is black
-                    backgroundColor = '#b58863'
+                    backgroundColor = '#b58863';
                 }
-                const top = y * square
+                const top = y * square;
                 
-                let clear='none'
-
+                //clear set to none will keep on same line
+                let clear='none';
                 let this_style = Object.assign({ backgroundColor, top, clear}, box_style)
 
-                
+                //To make a new line of squares
                 if(change==true){
                     const clear = 'left'
                     this_style = Object.assign({ backgroundColor, top, clear}, box_style)

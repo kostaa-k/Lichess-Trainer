@@ -102,31 +102,31 @@ export class ChessBoard extends Component{
         switch(letter){
             //WHITE PIECES
             case("P"):
-                return WhitePawn
+                return WhitePawn()
             case("R"):
-                return WhiteRook
+                return WhiteRook()
             case("N"):
-                return WhiteKnight
+                return WhiteKnight()
             case("B"):
-                return WhiteBishop
+                return WhiteBishop()
             case("Q"):
-                return WhiteQueen
+                return WhiteQueen()
             case("K"):
-                return WhiteKing
+                return WhiteKing()
             //BLACK PIECES
 
             case("p"):
-                return BlackPawn
+                return BlackPawn()
             case("r"):
-                return BlackRook
+                return BlackRook()
             case("n"):
-                return BlackKnight
+                return BlackKnight()
             case("b"):
-                return BlackBishop
+                return BlackBishop()
             case("q"):
-                return BlackQueen
+                return BlackQueen()
             case("k"):
-                return BlackKing
+                return BlackKing()
 
         }
     }
@@ -180,17 +180,17 @@ export class ChessBoard extends Component{
         // }
 
         const all_tiles  = tiles.map(tileRow =>{
-            tileRow.map(tile => {
+            const some_tiles = tileRow.map(tile => {
                 let listPieceInfo = piece_objects.filter(piece => piece.current_square.x_cord === tile.x_cord && piece.current_square.y_cord === tile.y_cord);
                 // let pieceLetter = this.get_piece_picture(listPieceInfo[0].letter);
                 if (listPieceInfo[0] === undefined) {
                     return <div style={tile.box_style}></div>
                 } else {
-                    return <div style={tile.box_style}>{BlackBishop()}</div>
+                    return <div style={tile.box_style}>{this.get_piece_picture(listPieceInfo[0].letter)}</div>
                 }
             })
+            return some_tiles;
         })
-        console.log(all_tiles)
         return all_tiles
     }
 }

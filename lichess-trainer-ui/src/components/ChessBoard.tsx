@@ -29,7 +29,7 @@ type a_piece = {
     letter: String
 }
 
-const square = 100 / 8
+const square = 50 / 8
 const squareSize = `${square}%`
 
 const box_style: CSS.Properties = {
@@ -56,10 +56,15 @@ export class ChessBoard extends Component {
 
         let temp_Square_tiles: square_box[];
 
+        let change=true
+
         for (let y = 0; y < 8; y++) {
             count = count + 1
 
             temp_Square_tiles = []
+
+            change=true
+            
             for (let x = 0; x < 8; x++) {
                 //colour is white
                 let backgroundColor = '#f0d9b5'
@@ -69,11 +74,23 @@ export class ChessBoard extends Component {
                     backgroundColor = '#b58863'
                 }
                 const top = y * square
-                const this_style = Object.assign({ backgroundColor, top }, box_style)
+                
+                let clear='none'
+
+                let this_style = Object.assign({ backgroundColor, top, clear}, box_style)
+
+                
+                if(change==true){
+                    const clear = 'left'
+                    this_style = Object.assign({ backgroundColor, top, clear}, box_style)
+                }
+
                 const temp_square = { x_cord: x, y_cord: y, box_style: this_style }
 
                 count = count + 1
                 temp_Square_tiles.push(temp_square)
+
+                change=false
             }
 
             tiles.push(temp_Square_tiles)

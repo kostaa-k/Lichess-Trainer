@@ -15,7 +15,7 @@ import WhiteQueen from '../pieces/white_queen.png';
 import WhitePawn from '../pieces/white_pawn.png';
 import defaultLineup from '../defaultLineup';
 
-let tiles: SquareBoxType[][];
+let tiles: SquareBoxType[][] = [];
 let currentPieces: PieceType[] = [];
 
 export class ChessBoard extends Component {
@@ -25,11 +25,10 @@ export class ChessBoard extends Component {
     }
 
     tileInitialSetup = () => {
-        let tiles: SquareBoxType[][] = [];
-        let rowTiles: SquareBoxType[] = [];
         let count = 0;
    
         for (let y = 0; y < 8; y++) {
+            let rowTiles: SquareBoxType[] = [];
             const marginFromTop = y * 100 / 8;
             count += 1
 
@@ -57,7 +56,7 @@ export class ChessBoard extends Component {
         return tiles[y_cord][x_cord]
     }
 
-    initialize_pieces(): PieceType[] {
+    initializePieces() {
         const defaultLineup = this.getDefaultLineup()
         currentPieces = [];
 
@@ -71,10 +70,9 @@ export class ChessBoard extends Component {
                 letter: item.split('@')[0],
             })
         });
-        return currentPieces;
     }
 
-    get_piece_picture(letter: String, size: Number) {
+    renderPiece(letter: String, size: Number) {
         switch (letter) {
             //WHITE PIECES
             case ("P"):
@@ -108,10 +106,11 @@ export class ChessBoard extends Component {
 
     componentWillMount() {
         this.tileInitialSetup();
-        this.initialize_pieces();
+        this.initializePieces();
     }
 
     render() {
+        console.log(tiles);
 
         const all_tiles = tiles.map(tileRow => {
             const some_tiles = tileRow.map(tile => {
@@ -120,7 +119,7 @@ export class ChessBoard extends Component {
                 if (listPieceInfo[0] === undefined) {
                     return <div style={tile.tileStyle}></div>
                 } else {
-                    return <div style={tile.tileStyle}>{this.get_piece_picture(listPieceInfo[0].letter, 100)}</div>
+                    return <div style={tile.tileStyle}>{this.renderPiece(listPieceInfo[0].letter, 100)}</div>
                 }
             })
             return some_tiles;

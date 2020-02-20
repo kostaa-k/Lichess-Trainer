@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { SquareBoxType, PieceType } from './models';
-import defaultLineup from '../defaultLineup';
-import { tileInitialSetup, initializePieces, renderPieces } from './utils';
+import { SquareBoxType, PieceType } from '../internal/models/ChessBoardModel';
+import { tileInitialSetup, initializePieces, renderPieces } from '../internal/actions/ChessBoardAction';
 
 let tiles: SquareBoxType[][] = [];
 let currentPieces: PieceType[] = [];

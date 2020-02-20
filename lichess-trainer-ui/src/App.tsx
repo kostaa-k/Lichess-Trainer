@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import ChessBoard from './components/ChessBoard'
+import ChessBoard from './components/ChessBoardComponent'
 
 function App() {
   return (

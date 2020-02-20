@@ -1,6 +1,6 @@
 import React from 'react';
-import { SquareBoxType, PieceType } from './models';
-import defaultLineup from '../defaultLineup';
+import { SquareBoxType, PieceType } from '../models/ChessBoardModel';
+import defaultLineup from '../../defaultLineup';
 import BlackKnight from '../pieces/black_knight.png';
 import BlackBishop from '../pieces/black_bishop.png';
 import BlackRook from '../pieces/black_rook.png';
@@ -13,7 +13,7 @@ import WhiteRook from '../pieces/white_rook.png';
 import WhiteKing from '../pieces/white_king.png';
 import WhiteQueen from '../pieces/white_queen.png';
 import WhitePawn from '../pieces/white_pawn.png';
-import { TileStyle } from './styles';
+import { TileStyle } from '../css-style/ChessBoardStyle';
 
 export const isEven = (number: number): boolean => { return ( number % 2 === 0)};
 

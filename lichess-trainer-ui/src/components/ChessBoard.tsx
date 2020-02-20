@@ -13,20 +13,17 @@ export class ChessBoard extends Component {
     }
 
     render() {
-        console.log(tiles);
-        const all_tiles = tiles.map(tileRow => {
-            const some_tiles = tileRow.map(tile => {
+        return tiles.map(tileRow => {
+            return tileRow.map(tile => {
                 let listPieceInfo = currentPieces.filter(piece => piece.currentSquare.xCord === tile.xCord && piece.currentSquare.yCord === tile.yCord);
 
-                if (listPieceInfo[0] === undefined) {
-                    return <div style={tile.tileStyle}></div>
+                if (listPieceInfo[0]) {
+                    return <div style={tile.tileStyle}>{renderPieces(listPieceInfo[0].letter)}</div>
                 } else {
-                    return <div style={tile.tileStyle}>{renderPieces(listPieceInfo[0].letter, 100)}</div>
+                    return <div style={tile.tileStyle}></div>
                 }
-            })
-            return some_tiles;
-        })
-        return all_tiles
+            });
+        });
     }
 }
 

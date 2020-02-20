@@ -71,7 +71,7 @@ export function initializePieces(): PieceType[] {
     return currentPieces;
 }
 
-export function renderPieces(letter: String, size: Number) {
+export function renderPieces(letter: String) {
     switch (letter) {
         //WHITE PIECES
         case 'P':

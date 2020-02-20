@@ -11,4 +11,3 @@ export interface PieceType {
     currentSquare: SquareBoxType,
     letter: String
 }
-

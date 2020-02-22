@@ -1,19 +1,19 @@
 import React from 'react';
 import { SquareBoxType, PieceType } from '../models/ChessBoardModel';
 import defaultLineup from '../../defaultLineup';
-import BlackKnight from '../pieces/black_knight.png';
-import BlackBishop from '../pieces/black_bishop.png';
-import BlackRook from '../pieces/black_rook.png';
-import BlackKing from '../pieces/black_king.png';
-import BlackQueen from '../pieces/black_queen.png';
-import BlackPawn from '../pieces/black_pawn.png';
-import WhiteKnight from '../pieces/white_knight.png';
-import WhiteBishop from '../pieces/white_bishop.png';
-import WhiteRook from '../pieces/white_rook.png';
-import WhiteKing from '../pieces/white_king.png';
-import WhiteQueen from '../pieces/white_queen.png';
-import WhitePawn from '../pieces/white_pawn.png';
-import { TileStyle } from '../css-style/ChessBoardStyle';
+import BlackKing from '../../pieces/black_king.png';
+import BlackKnight from '../../pieces/black_knight.png';
+import BlackBishop from '../../pieces/black_bishop.png';
+import BlackRook from '../../pieces/black_rook.png';
+import BlackQueen from '../../pieces/black_queen.png';
+import BlackPawn from '../../pieces/black_pawn.png';
+import WhiteKnight from '../../pieces/white_knight.png';
+import WhiteBishop from '../../pieces/white_bishop.png';
+import WhiteRook from '../../pieces/white_rook.png';
+import WhiteKing from '../../pieces/white_king.png';
+import WhiteQueen from '../../pieces/white_queen.png';
+import WhitePawn from '../../pieces/white_pawn.png';
+import { TileStyle } from '../css-styles/ChessBoardStyle';
 
 export const isEven = (number: number): boolean => { return ( number % 2 === 0)};
 

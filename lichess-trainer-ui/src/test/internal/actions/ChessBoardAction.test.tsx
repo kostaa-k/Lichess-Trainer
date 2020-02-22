@@ -11,10 +11,13 @@ describe('ChessBoardAction', () => {
         })
     })
 
-    describe('getDefaultLineup', () => {
-        it('should return a list of lineups', () => {
-            let GetDefaultLineupMock.slice = jest.fn().mockReturnValue([]);
-            expect(GetDefaultLineupMock).toHaveReturnedWith([]);    
-        })
-    })
+    // describe('getDefaultLineup', () => {
+    //     let GetDefaultLineupMock: any;
+    //     GetDefaultLineupMock = jest.fn();
+    //     it('should return a list of lineups', () => {
+    //         GetDefaultLineupMock. = jest.fn().mockReturnValue([]);
+    //         console.log(GetDefaultLineupMock.slice)
+    //         expect(GetDefaultLineupMock).toHaveReturnedWith('somethin');    
+    //     })
+    // })
 })

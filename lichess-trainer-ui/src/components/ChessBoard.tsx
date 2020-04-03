@@ -12,6 +12,7 @@ import WhiteRook from '../pieces/white_rook.png';
 import WhiteKing from '../pieces/white_king.png';
 import WhiteQueen from '../pieces/white_queen.png';
 import WhitePawn from '../pieces/white_pawn.png';
+import axios from 'axios';
 
 const defaultLineup = require('../defaultLineup')
 
@@ -143,6 +144,10 @@ export class ChessBoard extends Component {
 
             piece_objects.push(piece_object);
         }
+    }
+
+    getBoardPositions() {
+        return axios.get('/send_board');
     }
 
     render() {

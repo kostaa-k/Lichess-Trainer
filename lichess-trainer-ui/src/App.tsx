@@ -1,7 +1,6 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import ChessBoard from './components/ChessBoard'
+import ChessBoard from './components/ChessBoardComponent'
 
 function App() {
   return (

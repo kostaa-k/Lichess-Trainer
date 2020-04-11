@@ -53,8 +53,10 @@ def list_to_board(the_list):
 # def post_board(board_array):
 #     try:
         
-@app.route('/send_board')
+@app.route('/send_board',  methods=['GET', 'POST'])
+
 def send_board():
+    print(request.data)
     to_export = [
     'R@a5',
     'P@a2',
@@ -89,8 +91,8 @@ def send_board():
     'p@h7',
     'r@h8'
     ]
-
-    return {to_export}
+    the_str = " ".join(to_export)
+    return the_str
 
 
 

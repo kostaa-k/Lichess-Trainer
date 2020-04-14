@@ -15,8 +15,10 @@ import WhiteQueen from '../pieces/white_queen.png';
 import WhitePawn from '../pieces/white_pawn.png';
 
 const defaultLineup = require('../defaultLineup')
+const currentLineup = require('../currentLineup')
 
 const getDefaultLineup = () => defaultLineup.slice()
+const getCurrentLineup = () => currentLineup.slice()
 
 type square_box = {
     x_cord: Number,
@@ -131,37 +133,9 @@ export class ChessBoard extends Component {
         }
     }
 
-    decode_str_position(letter: String, the_num: number) {
-        // const input= "a7"
-
-        const x_cord = letter.charCodeAt(0) - 97;
-        const y_cord = 8 - the_num;
-
-        return tiles[y_cord][x_cord]
-    }
-
     componentWillMount() {
         this.setup();
-        this.initialize_pieces();
-    }
-
-    initialize_pieces() {
-
-        piece_objects = []
-
-        const these_pieces = getDefaultLineup()
-
-        for (let i = 0; i < these_pieces.length; i++) {
-            const piece_str = these_pieces[i];
-            const position_str = piece_str.split(["@"])[1]
-            const the_letter = position_str.charAt(0);
-            const the_num_pos = Number(position_str.charAt(1));
-
-            const piece_name = piece_str.split(["@"])[0];
-            const piece_object = { unique_id: "hello", current_square: this.decode_str_position(the_letter, the_num_pos), letter: piece_name };
-
-            piece_objects.push(piece_object);
-        }
+        initialize_pieces(true);
     }
 
     render() {
@@ -179,6 +153,42 @@ export class ChessBoard extends Component {
         })
         return all_tiles
     }
+}
+
+export function initialize_pieces(is_starting:boolean) {
+
+    piece_objects = [];
+
+    let these_pieces:string[];
+
+    if(is_starting=== true){
+        these_pieces = getDefaultLineup();
+    }
+    else{
+        these_pieces = getCurrentLineup();
+        console.log("Getting current lineup");
+    }
+
+    for (let i = 0; i < these_pieces.length; i++) {
+        const piece_str = these_pieces[i];
+        const position_str = piece_str.split("@")[1]
+        const the_letter = position_str.charAt(0);
+        const the_num_pos = Number(position_str.charAt(1));
+
+        const piece_name = piece_str.split("@")[0];
+        const piece_object = { unique_id: "hello", current_square: decode_str_position(the_letter, the_num_pos), letter: piece_name };
+
+        piece_objects.push(piece_object);
+    }
+}
+
+export function decode_str_position(letter: String, the_num: number) {
+    // const input= "a7"
+
+    const x_cord = letter.charCodeAt(0) - 97;
+    const y_cord = 8 - the_num;
+
+    return tiles[y_cord][x_cord]
 }
 
 export default ChessBoard;

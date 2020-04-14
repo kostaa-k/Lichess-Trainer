@@ -95,6 +95,12 @@ def send_board():
     return the_str
 
 
+@app.route('/example_endpoint',  methods=['GET', 'POST'])
+
+def example_func():
+    return "HOW ARE YOU"
+
+
 
 if __name__ == '__main__':
     app.run(use_reloader=True)

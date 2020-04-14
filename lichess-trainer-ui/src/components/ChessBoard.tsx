@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CSS from 'csstype';
+
 import BlackKnight from '../pieces/black_knight.png';
 import BlackBishop from '../pieces/black_bishop.png';
 import BlackRook from '../pieces/black_rook.png';
@@ -45,6 +46,7 @@ const box_style: CSS.Properties = {
 let tiles: square_box[][];
 
 let piece_objects: a_piece[];
+
 
 export class ChessBoard extends Component {
 

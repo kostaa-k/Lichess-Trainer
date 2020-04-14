@@ -1,11 +1,16 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+
 import ChessBoard from './components/ChessBoard'
+import {Buttons} from './components/Buttons'
 
 function App() {
   return (
-    <ChessBoard />
+    <div> 
+    <ChessBoard/>
+    <Buttons />
+    </div>
   );
 }
 

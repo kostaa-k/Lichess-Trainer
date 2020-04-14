@@ -1,10 +1,14 @@
 import React from 'react';
 import './App.css';
 import ChessBoard from './components/ChessBoardComponent'
+import { Button } from './Button';
 
 function App() {
   return (
-    <ChessBoard />
+    <div>
+      <ChessBoard />
+      <Button />
+    </div>
   );
 }
 

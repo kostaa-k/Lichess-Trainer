@@ -1,11 +1,11 @@
 from flask import Flask, request
 
 import json
-import pandas
-from lichess.format import SINGLE_PGN
-from lichess.format import PGN
-from lichess.format import JSON
-import chess
+# import pandas
+# from lichess.format import SINGLE_PGN
+# from lichess.format import PGN
+# from lichess.format import JSON
+# import chess
 
 app = Flask(__name__)
 @app.route('/get_data', methods=['POST', 'GET'])

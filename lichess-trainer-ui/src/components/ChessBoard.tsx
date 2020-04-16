@@ -13,6 +13,7 @@ import WhiteRook from '../pieces/white_rook.png';
 import WhiteKing from '../pieces/white_king.png';
 import WhiteQueen from '../pieces/white_queen.png';
 import WhitePawn from '../pieces/white_pawn.png';
+import { Buttons } from '../buttons/buttons-component';
 
 const defaultLineup = require('../defaultLineup')
 const currentLineup = require('../currentLineup')
@@ -20,13 +21,13 @@ const currentLineup = require('../currentLineup')
 export const getDefaultLineup = () => defaultLineup.slice()
 export const getCurrentLineup = () => currentLineup.slice()
 
-type square_box = {
+export type square_box = {
     x_cord: Number,
     y_cord: Number,
     box_style: CSS.Properties,
 }
 
-type a_piece = {
+export type a_piece = {
     unique_id: String,
     current_square: square_box,
     letter: String
@@ -50,108 +51,58 @@ let tiles: square_box[][];
 let piece_objects: a_piece[];
 
 
-export class ChessBoard extends Component {
+// export class ChessBoard extends Component {
+//     componentWillMount() {
+//         setup();
+//         initialize_pieces(true);
+//     }
 
-    setup() {
+//     render() {
+//         const all_tiles = tiles.map(tileRow => {
+//             const some_tiles = tileRow.map(tile => {
+//                 let listPieceInfo = piece_objects.filter(piece => piece.current_square.x_cord === tile.x_cord && piece.current_square.y_cord === tile.y_cord);
 
-        tiles = []
+//                 if (listPieceInfo[0] === undefined) {
+//                     return <div style={tile.box_style}></div>
+//                 } else {
+//                     return <div style={tile.box_style}>{this.get_piece_picture(listPieceInfo[0].letter, 100)}</div>
+//                 }
+//             })
+//             return some_tiles;
+//         })
+//         return all_tiles
+//     }
+// }
 
-        let count = 0
+export function get_piece_picture(letter: String, size: Number) {
+    switch (letter) {
+        //WHITE PIECES
+        case ("P"):
+            return <img src={WhitePawn} id="piece"/>
+        case ("R"):
+            return <img src={WhiteRook} id="piece"/>
+        case ("N"):
+            return <img src={WhiteKnight} id="piece"/>
+        case ("B"):
+            return <img src={WhiteBishop} id="piece"/>
+        case ("Q"):
+            return <img src={WhiteQueen} id="piece"/>
+        case ("K"):
+            return <img src={WhiteKing} id="piece"/>
+        //BLACK PIECES
 
-        let temp_Square_tiles: square_box[];
-
-        let change=true
-
-        for (let y = 0; y < 8; y++) {
-            count = count + 1
-
-            temp_Square_tiles = []
-
-            change=true
-            
-            for (let x = 0; x < 8; x++) {
-                //colour is white
-                let backgroundColor = '#f0d9b5';
-
-                if (count % 2 == 0) {
-                    //colour is black
-                    backgroundColor = '#b58863';
-                }
-                const top = y * square;
-                
-                //clear set to none will keep on same line
-                let clear='none';
-                let this_style = Object.assign({ backgroundColor, top, clear}, box_style)
-
-                //To make a new line of squares
-                if(change==true){
-                    const clear = 'left'
-                    this_style = Object.assign({ backgroundColor, top, clear}, box_style)
-                }
-
-                const temp_square = { x_cord: x, y_cord: y, box_style: this_style }
-
-                count = count + 1
-                temp_Square_tiles.push(temp_square)
-
-                change=false
-            }
-
-            tiles.push(temp_Square_tiles)
-        }
-    }
-
-    get_piece_picture(letter: String, size: Number) {
-        switch (letter) {
-            //WHITE PIECES
-            case ("P"):
-                return <img src={WhitePawn} id="piece"/>
-            case ("R"):
-                return <img src={WhiteRook} id="piece"/>
-            case ("N"):
-                return <img src={WhiteKnight} id="piece"/>
-            case ("B"):
-                return <img src={WhiteBishop} id="piece"/>
-            case ("Q"):
-                return <img src={WhiteQueen} id="piece"/>
-            case ("K"):
-                return <img src={WhiteKing} id="piece"/>
-            //BLACK PIECES
-
-            case ("p"):
-                return <img src={BlackPawn} id="piece"/>
-            case ("r"):
-                return <img src={BlackRook} id="piece"/>
-            case ("n"):
-                return <img src={BlackKnight} id="piece" />
-            case ("b"):
-                return <img src={BlackBishop} id="piece"/>
-            case ("q"):
-                return <img src={BlackQueen} id="piece"/>
-            case ("k"):
-                return <img src={BlackKing} id="piece"/>
-        }
-    }
-
-    componentWillMount() {
-        this.setup();
-        initialize_pieces(true);
-    }
-
-    render() {
-        const all_tiles = tiles.map(tileRow => {
-            const some_tiles = tileRow.map(tile => {
-                let listPieceInfo = piece_objects.filter(piece => piece.current_square.x_cord === tile.x_cord && piece.current_square.y_cord === tile.y_cord);
-
-                if (listPieceInfo[0] === undefined) {
-                    return <div style={tile.box_style}></div>
-                } else {
-                    return <div style={tile.box_style}>{this.get_piece_picture(listPieceInfo[0].letter, 100)}</div>
-                }
-            })
-            return some_tiles;
-        })
-        return all_tiles
+        case ("p"):
+            return <img src={BlackPawn} id="piece"/>
+        case ("r"):
+            return <img src={BlackRook} id="piece"/>
+        case ("n"):
+            return <img src={BlackKnight} id="piece" />
+        case ("b"):
+            return <img src={BlackBishop} id="piece"/>
+        case ("q"):
+            return <img src={BlackQueen} id="piece"/>
+        case ("k"):
+            return <img src={BlackKing} id="piece"/>
     }
 }
 
@@ -180,6 +131,7 @@ export function initialize_pieces(is_starting:boolean) {
 
         piece_objects.push(piece_object);
     }
+    return piece_objects;
 }
 
 export function decode_str_position(letter: String, the_num: number) {
@@ -191,4 +143,54 @@ export function decode_str_position(letter: String, the_num: number) {
     return tiles[y_cord][x_cord]
 }
 
-export default ChessBoard;
+export function setup(): square_box[][] {
+
+    tiles = []
+
+    let count = 0
+
+    let temp_Square_tiles: square_box[];
+
+    let change=true
+
+    for (let y = 0; y < 8; y++) {
+        count = count + 1
+
+        temp_Square_tiles = []
+
+        change=true
+        
+        for (let x = 0; x < 8; x++) {
+            //colour is white
+            let backgroundColor = '#f0d9b5';
+
+            if (count % 2 == 0) {
+                //colour is black
+                backgroundColor = '#b58863';
+            }
+            const top = y * square;
+            
+            //clear set to none will keep on same line
+            let clear='none';
+            let this_style = Object.assign({ backgroundColor, top, clear}, box_style)
+
+            //To make a new line of squares
+            if(change==true){
+                const clear = 'left'
+                this_style = Object.assign({ backgroundColor, top, clear}, box_style)
+            }
+
+            const temp_square = { x_cord: x, y_cord: y, box_style: this_style }
+
+            count = count + 1
+            temp_Square_tiles.push(temp_square)
+
+            change=false
+        }
+
+        tiles.push(temp_Square_tiles)
+    }
+    return tiles;
+}
+
+// export default ChessBoard;

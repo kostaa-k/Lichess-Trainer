@@ -17,8 +17,8 @@ import WhitePawn from '../pieces/white_pawn.png';
 const defaultLineup = require('../defaultLineup')
 const currentLineup = require('../currentLineup')
 
-const getDefaultLineup = () => defaultLineup.slice()
-const getCurrentLineup = () => currentLineup.slice()
+export const getDefaultLineup = () => defaultLineup.slice()
+export const getCurrentLineup = () => currentLineup.slice()
 
 type square_box = {
     x_cord: Number,
